@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "63114981432",
+    "project_id": "travel-span-6f92b",
+    "storage_bucket": "travel-span-6f92b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63114981432:android:f5d10db8e954300242f6cd",
+        "android_client_info": {
+          "package_name": "com.news.travelSpan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63114981432-8t6e0hd5ehh54giep53dfokhmjvmhhkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKdiUrsbsmpEUoLn_MbifZnysBtIXamDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63114981432-8t6e0hd5ehh54giep53dfokhmjvmhhkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
