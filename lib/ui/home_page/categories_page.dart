@@ -19,8 +19,7 @@ class CategoriesPage extends StatefulWidget {
   State<CategoriesPage> createState() => _CategoriesPageState();
 }
 
-class _CategoriesPageState extends State<CategoriesPage>
-    with AutomaticKeepAliveClientMixin {
+class _CategoriesPageState extends State<CategoriesPage> with AutomaticKeepAliveClientMixin {
   NewsController newsData = Get.put(NewsController());
   String categoriesName = "";
   MyTabs relatedPostData = Get.put(MyTabs());
@@ -32,9 +31,7 @@ class _CategoriesPageState extends State<CategoriesPage>
   @override
   void initState() {
     super.initState();
-    getData = (widget.id.isEmpty)
-        ? newsData.fetchLatestData()
-        : newsData.fetchData(id: widget.id, page: pageNumber);
+    getData = (widget.id.isEmpty) ? newsData.fetchLatestData() : newsData.fetchData(id: widget.id, page: pageNumber);
   }
 
   @override
@@ -47,10 +44,7 @@ class _CategoriesPageState extends State<CategoriesPage>
             return Center(
               child: Text(
                 "No Post",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: AppColors.blackColor),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.blackColor),
               ),
             );
           }
@@ -61,11 +55,7 @@ class _CategoriesPageState extends State<CategoriesPage>
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return GeneralWidgets().zerothIndexWidget(
-                      id: widget.id,
-                      context: context,
-                      newsData: snapshot.data ?? [],
-                      index: index);
+                  return GeneralWidgets().zerothIndexWidget(id: widget.id, context: context, newsData: snapshot.data ?? [], index: index);
                 }
 
                 return GeneralWidgets().newsCard(
@@ -79,8 +69,7 @@ class _CategoriesPageState extends State<CategoriesPage>
           return Center(child: Text("${snapshot.error}"));
         }
 
-        return const SizedBox(
-            child: Center(child: CircularProgressIndicator()));
+        return const SizedBox(child: Center(child: CircularProgressIndicator()));
       },
     );
   }

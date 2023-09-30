@@ -68,24 +68,32 @@ class _DetailsPageState extends State<DetailsPage> {
                     height: MediaQuery.of(context).size.height / 4,
                     width: MediaQuery.of(context).size.width,
                     child: FancyShimmerImage(
-                      imageUrl: widget.newsData[index]["_embedded"]
-                              ["wp:featuredmedia"]?[0]["source_url"] ??
-                          "",
+                      imageUrl: widget.newsData[index]["_embedded"]["wp:featuredmedia"]?[0]["source_url"] ?? "",
                       width: MediaQuery.of(context).size.width,
                       boxFit: BoxFit.cover,
                     )),
+                // Container(
+                //   margin: const EdgeInsets.only(top: 10),
+                //   padding: const EdgeInsets.all(10),
+                //   child: Text(
+                //     widget.newsData[index]["title"]["rendered"]
+                //         .toString()
+                //         .replaceAll("#8217;s", ""),
+                //     textAlign: TextAlign.start,
+                //     style: const TextStyle(
+                //         fontSize: 25, fontWeight: FontWeight.bold),
+                //   ),
+                // ),
+
                 Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    widget.newsData[index]["title"]["rendered"]
-                        .toString()
-                        .replaceAll("#8217;s", ""),
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
-                ),
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.all(10),
+                    child: Html(
+                      data: widget.newsData[index]["title"]["rendered"],
+                      style: {
+                        '#': Style(fontSize:const  FontSize(25), fontWeight: FontWeight.bold, textAlign: TextAlign.start),
+                      },
+                    )),
                 const SizedBox(
                   height: 10,
                 ),
@@ -100,56 +108,39 @@ class _DetailsPageState extends State<DetailsPage> {
                               widget.newsData[index]["date"].toString(),
                             ),
                             locale: 'en_short'),
-                        style:
-                            TextStyle(color: AppColors.greyColor, fontSize: 14),
+                        style: TextStyle(color: AppColors.greyColor, fontSize: 14),
                       ),
-                      Text(" ago",
-                          style: TextStyle(
-                              color: AppColors.greyColor, fontSize: 14)),
+                      Text(" ago", style: TextStyle(color: AppColors.greyColor, fontSize: 14)),
                       Text(
                         " | ",
-                        style:
-                            TextStyle(color: AppColors.greyColor, fontSize: 14),
+                        style: TextStyle(color: AppColors.greyColor, fontSize: 14),
                       ),
                       Text(
                         (widget.id == null)
                             ? widget.categoryName
                             : (widget.id!.isEmpty)
-                                ? widget.newsData[index]["_embedded"]["wp:term"]
-                                    [0][0]["name"]
-                                : widget.newsData[index]["_embedded"]["wp:term"]
-                                        ?[0][0]["name"] ??
-                                    "",
-                        style: TextStyle(
-                            color: AppColors.primaryColorRed, fontSize: 14),
+                                ? widget.newsData[index]["_embedded"]["wp:term"][0][0]["name"]
+                                : widget.newsData[index]["_embedded"]["wp:term"]?[0][0]["name"] ?? "",
+                        style: TextStyle(color: AppColors.primaryColorRed, fontSize: 14),
                       ),
                       Expanded(child: Container()),
                       Obx(() => () {
                             return InkWell(onTap: () {
-                              if (bookMarkController
-                                  .isBookmarked(widget.newsData[index])) {
+                              if (bookMarkController.isBookmarked(widget.newsData[index])) {
                                 if (widget.isFromSavedStory == true) {
                                   Get.back();
-                                  bookMarkController
-                                      .removeBookmark(widget.newsData[index]);
+                                  bookMarkController.removeBookmark(widget.newsData[index]);
                                 }
-                                bookMarkController
-                                    .removeBookmark(widget.newsData[index]);
+                                bookMarkController.removeBookmark(widget.newsData[index]);
                               } else {
-                                widget.newsData[index]["bookmarkSavedDate"] =
-                                    DateTime.now().toString();
-                                bookMarkController
-                                    .addToBookmark(widget.newsData[index]);
+                                widget.newsData[index]["bookmarkSavedDate"] = DateTime.now().toString();
+                                bookMarkController.addToBookmark(widget.newsData[index]);
                               }
                             }, child: () {
                               return Icon(
-                                bookMarkController
-                                        .isBookmarked(widget.newsData[index])
-                                    ? Icons.bookmark
-                                    : Icons.bookmark_border_outlined,
+                                bookMarkController.isBookmarked(widget.newsData[index]) ? Icons.bookmark : Icons.bookmark_border_outlined,
                                 size: 23,
-                                color: bookMarkController
-                                        .isBookmarked(widget.newsData[index])
+                                color: bookMarkController.isBookmarked(widget.newsData[index])
                                     ? AppColors.primaryColorRed
                                     : (settingController.isDarkMode.value)
                                         ? AppColors.whiteColor
@@ -161,10 +152,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: InkWell(
                             onTap: () {
-                              GeneralWidgets.share(
-                                  linkUrl: widget.newsData[index]["link"],
-                                  text: widget.newsData[index]["title"]
-                                      ["rendered"]);
+                              GeneralWidgets.share(linkUrl: widget.newsData[index]["link"], text: widget.newsData[index]["title"]["rendered"]);
                             },
                             child: const Icon(
                               Icons.share,
@@ -174,8 +162,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -213,14 +200,11 @@ class _DetailsPageState extends State<DetailsPage> {
                 Obx(() => Container(
                       padding: const EdgeInsets.all(2),
                       child: Html(
-                        data: widget.newsData[index]["content"]["rendered"]
-                            .toString(),
+                        data: widget.newsData[index]["content"]["rendered"].toString(),
                         style: {
                           "body": Style(
-                              fontSize: FontSize(
-                                  fontSizeController.fontSize.value.toDouble()),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 15),
+                              fontSize: FontSize(fontSizeController.fontSize.value.toDouble()),
+                              margin: const EdgeInsets.symmetric(horizontal: 15),
                               textAlign: TextAlign.start,
                               lineHeight: LineHeight.number(1.2)),
                         },
@@ -234,17 +218,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           children: [
                             Text(
                               "Related Stories",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                       ),
-                ...List.generate(
-                    (widget.newsData.length <= 5) ? widget.newsData.length : 6,
-                    (indexs) {
-                  if (widget.newsData[indexs]["title"]["rendered"] ==
-                      widget.newsData[index]["title"]["rendered"]) {
+                ...List.generate((widget.newsData.length <= 5) ? widget.newsData.length : 6, (indexs) {
+                  if (widget.newsData[indexs]["title"]["rendered"] == widget.newsData[index]["title"]["rendered"]) {
                     return const SizedBox();
                   }
                   if (widget.newsData.isEmpty) {
@@ -259,11 +239,8 @@ class _DetailsPageState extends State<DetailsPage> {
                       categoryName: (widget.id == null)
                           ? widget.categoryName
                           : (widget.id!.isEmpty)
-                              ? widget.newsData[index]["_embedded"]["wp:term"]
-                                  [0][0]["name"]
-                              : widget.newsData[index]["_embedded"]["wp:term"]
-                                      ?[0][0]["name"] ??
-                                  "");
+                              ? widget.newsData[index]["_embedded"]["wp:term"][0][0]["name"]
+                              : widget.newsData[index]["_embedded"]["wp:term"]?[0][0]["name"] ?? "");
                 }),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),

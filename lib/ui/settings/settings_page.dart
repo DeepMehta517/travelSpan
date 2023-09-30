@@ -9,6 +9,7 @@ import 'package:newsapp/ui/constant/colors.dart';
 import 'package:newsapp/ui/general/general_widgets.dart';
 import 'package:newsapp/ui/settings/feedback.dart';
 import 'package:newsapp/ui/settings/login_page.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import '../../controllers/setting/account_setting.dart';
 import '../general/web_view.dart';
@@ -56,18 +57,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () =>
-                                  Navigator.of(context).push(MaterialPageRoute(
+                              onTap: () => Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const LoginPage(),
                               )),
                               child: Container(
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.primaryColorRed),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.primaryColorRed),
                                 child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 12),
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                                   child: Text(
                                     "Login",
                                     style: TextStyle(
@@ -85,19 +82,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () =>
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const CreateYourAccountPage(),
+                              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CreateYourAccountPage(),
                               )),
                               child: Container(
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.primaryColorRed),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.primaryColorRed),
                                 child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 12),
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                                   child: Text(
                                     "Sign Up",
                                     style: TextStyle(
@@ -174,17 +166,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     children: [
                       Text(
                         "Font Size - ${fontSizeController.fontSize.value}",
-                        style: TextStyle(
-                            fontSize:
-                                fontSizeController.fontSize.value.toDouble()),
+                        style: TextStyle(fontSize: fontSizeController.fontSize.value.toDouble()),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       const Text(
                         "Font will be changed only for details page",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -196,8 +185,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     value: fontSizeController.fontSize.value.toDouble(),
                     onChanged: (value) {
                       fontSizeController.fontSize.value = value.toInt();
-                      GetStorage()
-                          .write("fontSize", fontSizeController.fontSize.value);
+                      GetStorage().write("fontSize", fontSizeController.fontSize.value);
                     },
                   ),
                 ),
@@ -218,8 +206,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   value: (settingController.isDarkMode.value) ? true : false,
                   onChanged: (value) {
                     settingController.toggleDarkMode();
-                    GetStorage()
-                        .write("DarkMode", settingController.isDarkMode.value);
+                    GetStorage().write("DarkMode", settingController.isDarkMode.value);
                   },
                   activeColor: Colors.red,
                   inactiveTrackColor: Colors.grey,
@@ -369,15 +356,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [
                         Obx(() => Text(
                               "Ratings: ${settingController.rating.value}",
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600),
+                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                             )),
                         const SizedBox(
                           height: 10,
                         ),
                         RatingBar.builder(
-                          initialRating:
-                              settingController.rating.value.toDouble(),
+                          initialRating: settingController.rating.value.toDouble(),
                           minRating: 1,
                           maxRating: 5,
                           glow: false,
@@ -385,8 +370,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Icons.star,
                             color: Colors.amber,
                           ),
-                          onRatingUpdate: (value) =>
-                              settingController.rating.value = value.toInt(),
+                          onRatingUpdate: (value) => settingController.rating.value = value.toInt(),
                         ),
                         const SizedBox(
                           height: 15,
@@ -395,12 +379,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           child: Container(
                             width: MediaQuery.of(context).size.width / 3,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.primaryColorRed),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.primaryColorRed),
                             child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 12),
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                               child: Text(
                                 "Submit",
                                 style: TextStyle(
@@ -413,6 +394,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           onTap: () {
                             settingController.rating.value = 0;
+                            StoreRedirect.redirect(androidAppId: "com.devender.travel_Span", iOSAppId: "585027354");
                             Get.back();
                           },
                         )
@@ -428,8 +410,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               contentPadding: const EdgeInsets.all(0),
-              onTap: () => GeneralWidgets()
-                  .shareContent("Check out this awesome Flutter app!"),
+              onTap: () => GeneralWidgets().shareContent(
+                "https://play.google.com/store/apps/details?id=com.devender.travel_Span",
+              ),
               title: const Text(
                 "Share our app",
                 style: TextStyle(fontSize: 18),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -31,17 +32,12 @@ class GeneralWidgets {
     required String? linkUrl,
     required String? text,
   }) async {
-    await FlutterShare.share(
-        text: text,
-        title: 'Share',
-        linkUrl: linkUrl,
-        chooserTitle: 'Example Chooser Title');
+    await FlutterShare.share(text: text, title: 'Share', linkUrl: linkUrl, chooserTitle: 'Example Chooser Title');
   }
 
   ///saved Story Remove Permanently Dialog
 
-  static Future savedStoryRemovePermanentlyDialog(
-      {required BuildContext context, var controller}) {
+  static Future savedStoryRemovePermanentlyDialog({required BuildContext context, var controller}) {
     return showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -74,17 +70,13 @@ class GeneralWidgets {
     );
   }
 
-  static SnackbarController showSnackBar(
-      {required String messageText, required String title}) {
+  static SnackbarController showSnackBar({required String messageText, required String title}) {
     return Get.showSnackbar(GetSnackBar(
       borderRadius: 20,
       title: title,
       messageText: Text(
         messageText,
-        style: TextStyle(
-            color: AppColors.whiteColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold),
+        style: TextStyle(color: AppColors.whiteColor, fontSize: 16, fontWeight: FontWeight.bold),
       ),
       icon: Icon(
         Icons.cancel_rounded,
@@ -100,15 +92,13 @@ class GeneralWidgets {
 
   ///saved Story Remove Older Than A Week Dialog
 
-  static Future savedStoryRemoveOlderThanAWeekDialog(
-      {required BuildContext context, required BookMarkController controller}) {
+  static Future savedStoryRemoveOlderThanAWeekDialog({required BuildContext context, required BookMarkController controller}) {
     return showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: const Text('Remove Articles'),
-          content: const Text(
-              'Are you sure you want to remove articles older than 1 week?'),
+          content: const Text('Are you sure you want to remove articles older than 1 week?'),
           actions: <Widget>[
             TextButton(
               child: Text(
@@ -126,16 +116,12 @@ class GeneralWidgets {
               ),
               onPressed: () {
                 controller.bookmark.firstWhereOrNull((element) {
-                  final apiDateTime =
-                      DateTime.parse(element["bookmarkSavedDate"].toString());
+                  final apiDateTime = DateTime.parse(element["bookmarkSavedDate"].toString());
                   final difference = DateTime.now().difference(apiDateTime);
                   if ((difference.inDays < 7)) {
-                    showSnackBar(
-                        title: "Article Date",
-                        messageText: "No Article older than a Week");
+                    showSnackBar(title: "Article Date", messageText: "No Article older than a Week");
                   } else {
-                    controller.bookmark
-                        .removeWhere((element) => difference.inDays > 7);
+                    controller.bookmark.removeWhere((element) => difference.inDays > 7);
                   }
 
                   return true;
@@ -152,15 +138,13 @@ class GeneralWidgets {
 
   ///saved Story Remove Older Than A Month Dialog
 
-  static Future savedStoryRemoveOlderThanAMonthDialog(
-      {required BuildContext context, required BookMarkController controller}) {
+  static Future savedStoryRemoveOlderThanAMonthDialog({required BuildContext context, required BookMarkController controller}) {
     return showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: const Text('Remove Articles'),
-          content: const Text(
-              'Are you sure you want to remove articles older than 1 week?'),
+          content: const Text('Are you sure you want to remove articles older than 1 week?'),
           actions: <Widget>[
             TextButton(
               child: Text(
@@ -178,16 +162,12 @@ class GeneralWidgets {
               ),
               onPressed: () {
                 controller.bookmark.firstWhereOrNull((element) {
-                  final apiDateTime =
-                      DateTime.parse(element["bookmarkSavedDate"].toString());
+                  final apiDateTime = DateTime.parse(element["bookmarkSavedDate"].toString());
                   final difference = DateTime.now().difference(apiDateTime);
                   if ((difference.inDays < 29) || difference.inDays < 30) {
-                    showSnackBar(
-                        title: "Article Date",
-                        messageText: "No Article older than a Month");
+                    showSnackBar(title: "Article Date", messageText: "No Article older than a Month");
                   } else {
-                    controller.bookmark.removeWhere((element) =>
-                        ((difference.inDays > 29) || difference.inDays > 30));
+                    controller.bookmark.removeWhere((element) => ((difference.inDays > 29) || difference.inDays > 30));
                   }
 
                   return true;
@@ -303,71 +283,40 @@ class GeneralWidgets {
                     itemBuilder: (BuildContext context, int index) {
                       List subCategoryData;
 
-                      subCategoryData = subCategories
-                          .where((element) =>
-                              element.parent == mainCategories[index].id)
-                          .toList();
+                      subCategoryData = subCategories.where((element) => element.parent == mainCategories[index].id).toList();
 
                       return ExpansionTile(
                           onExpansionChanged: (value) {
-                            (subCategoryData.firstWhereOrNull((element) =>
-                                        element.parent ==
-                                        mainCategories[index].id) ==
-                                    null)
+                            (subCategoryData.firstWhereOrNull((element) => element.parent == mainCategories[index].id) == null)
                                 ? Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => DrawerDetailPage(
-                                        id: mainCategories[index].id.toString(),
-                                        pageName: mainCategories[index]
-                                            .name
-                                            .toString()),
+                                    builder: (context) =>
+                                        DrawerDetailPage(id: mainCategories[index].id.toString(), pageName: mainCategories[index].name.toString()),
                                   ))
                                 : const SizedBox();
                           },
-                          iconColor: (subCategoryData.firstWhereOrNull(
-                                      (element) =>
-                                          element.parent ==
-                                          mainCategories[index].id) ==
-                                  null)
+                          iconColor: (subCategoryData.firstWhereOrNull((element) => element.parent == mainCategories[index].id) == null)
                               ? Colors.white
                               : Colors.blue,
-                          collapsedIconColor: (subCategoryData.firstWhereOrNull(
-                                      (element) =>
-                                          element.parent ==
-                                          mainCategories[index].id) ==
-                                  null)
+                          collapsedIconColor: (subCategoryData.firstWhereOrNull((element) => element.parent == mainCategories[index].id) == null)
                               ? Colors.white
                               : Colors.blue,
                           backgroundColor: Colors.white12,
                           title: Text(
-                            mainCategories[index]
-                                .name
-                                .toString()
-                                .replaceAll("amp;", ""),
+                            mainCategories[index].name.toString().replaceAll("amp;", ""),
                             style: const TextStyle(color: Colors.black),
                           ),
                           children: List.generate(
                               subCategoryData.length,
                               (index) => ListTile(
                                     title: Text(
-                                      subCategoryData[index]
-                                          .name
-                                          .toString()
-                                          .replaceAll("amp;", ""),
-                                      style:
-                                          const TextStyle(color: Colors.blue),
+                                      subCategoryData[index].name.toString().replaceAll("amp;", ""),
+                                      style: const TextStyle(color: Colors.blue),
                                     ),
                                     onTap: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
+                                      Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => DrawerDetailPage(
-                                            id: (subCategoryData != null)
-                                                ? subCategoryData[index]
-                                                    .id
-                                                    .toString()
-                                                : "",
-                                            pageName: (subCategoryData != null)
-                                                ? subCategoryData[index].name
-                                                : ""),
+                                            id: (subCategoryData != null) ? subCategoryData[index].id.toString() : "",
+                                            pageName: (subCategoryData != null) ? subCategoryData[index].name : ""),
                                       ));
                                     },
                                   )));
@@ -417,8 +366,7 @@ class GeneralWidgets {
   ///Reels button
   static Widget reels() {
     return InkWell(
-      onTap: () => Get.to(
-          WebViewPage(url: "https://travelspan.in/reel/", title: "Reels")),
+      onTap: () => Get.to(WebViewPage(url: "https://travelspan.in/reel/", title: "Reels")),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         alignment: Alignment.center,
@@ -482,11 +430,8 @@ class GeneralWidgets {
                   height: 100,
                   width: 150,
                   child: FancyShimmerImage(
-                    imageUrl: (newsData[index]["_embedded"]
-                                ["wp:featuredmedia"] !=
-                            null)
-                        ? newsData[index]["_embedded"]["wp:featuredmedia"][0]
-                            ["source_url"]
+                    imageUrl: (newsData[index]["_embedded"]["wp:featuredmedia"] != null)
+                        ? newsData[index]["_embedded"]["wp:featuredmedia"][0]["source_url"] ?? ''
                         : "",
                   ),
                 ),
@@ -502,24 +447,33 @@ class GeneralWidgets {
                       const SizedBox(
                         height: 10,
                       ),
-                      SizedBox(
-                        child: Text(
-                          newsData[index]["title"]["rendered"]
-                              .toString()
-                              .replaceAll("#8217;s", "")
-                              .replaceAll("&#8220;", "")
-                              .replaceAll("&#8221;", "")
-                              .replaceAll("&#8216;", "")
-                              .replaceAll("&#8217;", ""),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: TextStyle(
-                              color: AppColors.blackColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
+
+                      Html(
+                        data: newsData[index]["title"]["rendered"],
+                        shrinkWrap: true,
+                        style: {
+                          '#': Style(
+                            fontSize: FontSize(15),
+                            maxLines: 2,
+                            textOverflow: TextOverflow.ellipsis,
+                          ),
+                        },
                       ),
+                      // SizedBox(
+                      //   child: Text(
+                      //     newsData[index]["title"]["rendered"]
+                      //         .toString()
+                      //         .replaceAll("#8217;s", "")
+                      //         .replaceAll("&#8220;", "")
+                      //         .replaceAll("&#8221;", "")
+                      //         .replaceAll("&#8216;", "")
+                      //         .replaceAll("&#8217;", ""),
+                      //     maxLines: 3,
+                      //     overflow: TextOverflow.ellipsis,
+                      //     softWrap: true,
+                      //     style: TextStyle(color: AppColors.blackColor, fontSize: 14, fontWeight: FontWeight.bold),
+                      //   ),
+                      // ),
                       const Expanded(child: SizedBox()),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -539,22 +493,16 @@ class GeneralWidgets {
                             ),
                             maxLines: 1,
                           ),
-                          Text(" ago",
-                              style: TextStyle(
-                                  color: AppColors.greyColor, fontSize: 14)),
+                          Text(" ago", style: TextStyle(color: AppColors.greyColor, fontSize: 14)),
                           Text(
                             " | ",
-                            style: TextStyle(
-                                color: AppColors.greyColor, fontSize: 14),
+                            style: TextStyle(color: AppColors.greyColor, fontSize: 14),
                           ),
                           () {
                             List<String> categoryNames = [];
-                            if (newsData[index]['_embedded']['wp:term'] !=
-                                null) {
-                              for (var category in newsData[index]['_embedded']
-                                  ['wp:term'][0]) {
-                                if (newsData[index]['categories']
-                                    .contains(category['id'])) {
+                            if (newsData[index]['_embedded']['wp:term'] != null) {
+                              for (var category in newsData[index]['_embedded']['wp:term'][0]) {
+                                if (newsData[index]['categories'].contains(category['id'])) {
                                   categoryNames.add(category['name']);
                                 }
                               }
@@ -565,36 +513,24 @@ class GeneralWidgets {
                                 categoryNames[0],
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: TextStyle(
-                                    color: AppColors.primaryColorRed,
-                                    fontSize: 14),
+                                style: TextStyle(color: AppColors.primaryColorRed, fontSize: 14),
                               ),
                             );
                           }(),
                           Expanded(child: Container()),
                           Obx(() => () {
                                 return InkWell(onTap: () {
-                                  if (bookMarkController
-                                      .isBookmarked(newsData[index])) {
-                                    bookMarkController
-                                        .removeBookmark(newsData[index]);
+                                  if (bookMarkController.isBookmarked(newsData[index])) {
+                                    bookMarkController.removeBookmark(newsData[index]);
                                   } else {
-                                    newsData[index]["bookmarkSavedDate"] =
-                                        DateTime.now().toIso8601String();
-                                    bookMarkController
-                                        .addToBookmark(newsData[index]);
+                                    newsData[index]["bookmarkSavedDate"] = DateTime.now().toIso8601String();
+                                    bookMarkController.addToBookmark(newsData[index]);
                                   }
                                 }, child: () {
                                   return Icon(
-                                    bookMarkController
-                                            .isBookmarked(newsData[index])
-                                        ? Icons.bookmark
-                                        : Icons.bookmark_border_outlined,
+                                    bookMarkController.isBookmarked(newsData[index]) ? Icons.bookmark : Icons.bookmark_border_outlined,
                                     size: 23,
-                                    color: bookMarkController
-                                            .isBookmarked(newsData[index])
-                                        ? AppColors.primaryColorRed
-                                        : AppColors.blackColor,
+                                    color: bookMarkController.isBookmarked(newsData[index]) ? AppColors.primaryColorRed : AppColors.blackColor,
                                   );
                                 }());
                               }()),
@@ -603,9 +539,7 @@ class GeneralWidgets {
                           ),
                           InkWell(
                               onTap: () {
-                                GeneralWidgets.share(
-                                    linkUrl: newsData[index]["link"],
-                                    text: newsData[index]["title"]["rendered"]);
+                                GeneralWidgets.share(linkUrl: newsData[index]["link"], text: newsData[index]["title"]["rendered"]);
                               },
                               child: Icon(
                                 Icons.share,
@@ -648,22 +582,27 @@ class GeneralWidgets {
         child: Column(
           children: [
             FancyShimmerImage(
-                imageUrl: newsData[index]["_embedded"]["wp:featuredmedia"]?[0]
-                        ["source_url"] ??
-                    "",
-                width: MediaQuery.of(context).size.width),
+                imageUrl: newsData[index]["_embedded"]["wp:featuredmedia"]?[0]["source_url"] ?? "", width: MediaQuery.of(context).size.width),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              child: Text(
-                newsData[index]["title"]["rendered"]
-                    .toString()
-                    .replaceAll("#8217;s", ""),
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: AppColors.blackColor),
+              child: Html(
+                data: newsData[index]["title"]["rendered"],
+                shrinkWrap: true,
+                style: {
+                  '#': Style(
+                    fontSize: FontSize(20),
+                  ),
+                },
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            //   child: Text(
+            //     newsData[index]["title"]["rendered"].toString().replaceAll("#8217;s", ""),
+            //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.blackColor),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
@@ -678,9 +617,7 @@ class GeneralWidgets {
                         .replaceAll("~", ""),
                     style: TextStyle(color: AppColors.greyColor, fontSize: 15),
                   ),
-                  Text(" ago",
-                      style:
-                          TextStyle(color: AppColors.greyColor, fontSize: 14)),
+                  Text(" ago", style: TextStyle(color: AppColors.greyColor, fontSize: 14)),
                   Text(
                     " | ",
                     style: TextStyle(color: AppColors.greyColor, fontSize: 15),
@@ -688,12 +625,9 @@ class GeneralWidgets {
                   () {
                     List<String> categoryNames = [];
                     if (newsData[index]['_embedded']['wp:term'] != null) {
-                      for (var category in newsData[index]['_embedded']
-                          ['wp:term'][0]) {
+                      for (var category in newsData[index]['_embedded']['wp:term'][0]) {
                         for (var i in newsData[index]['categories']) {
-                          if (newsData[index]['categories']
-                                  .contains(category['id']) &&
-                              i == category["id"]) {
+                          if (newsData[index]['categories'].contains(category['id']) && i == category["id"]) {
                             categoryNames.add(category['name']);
                           }
                         }
@@ -705,32 +639,24 @@ class GeneralWidgets {
                         categoryNames[0],
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(
-                            color: AppColors.primaryColorRed, fontSize: 14),
+                        style: TextStyle(color: AppColors.primaryColorRed, fontSize: 14),
                       ),
                     );
                   }(),
                   Expanded(child: Container()),
                   Obx(() => () {
                         return InkWell(onTap: () {
-                          if (bookMarkController
-                              .isBookmarked(newsData[index])) {
+                          if (bookMarkController.isBookmarked(newsData[index])) {
                             bookMarkController.removeBookmark(newsData[index]);
                           } else {
-                            newsData[index]["bookmarkSavedDate"] =
-                                DateTime.now().toString();
+                            newsData[index]["bookmarkSavedDate"] = DateTime.now().toString();
                             bookMarkController.addToBookmark(newsData[index]);
                           }
                         }, child: () {
                           return Icon(
-                            bookMarkController.isBookmarked(newsData[index])
-                                ? Icons.bookmark
-                                : Icons.bookmark_border_outlined,
+                            bookMarkController.isBookmarked(newsData[index]) ? Icons.bookmark : Icons.bookmark_border_outlined,
                             size: 23,
-                            color:
-                                bookMarkController.isBookmarked(newsData[index])
-                                    ? AppColors.primaryColorRed
-                                    : AppColors.blackColor,
+                            color: bookMarkController.isBookmarked(newsData[index]) ? AppColors.primaryColorRed : AppColors.blackColor,
                           );
                         }());
                       }()),
@@ -739,9 +665,7 @@ class GeneralWidgets {
                   ),
                   InkWell(
                       onTap: () {
-                        GeneralWidgets.share(
-                            linkUrl: newsData[index]["link"],
-                            text: newsData[index]["title"]["rendered"]);
+                        GeneralWidgets.share(linkUrl: newsData[index]["link"], text: newsData[index]["title"]["rendered"]);
                       },
                       child: Icon(
                         Icons.share,
@@ -792,8 +716,7 @@ class GeneralWidgets {
                   height: 100,
                   width: 150,
                   child: FancyShimmerImage(
-                    imageUrl: newsData[index]["_embedded"]["wp:featuredmedia"]
-                        [0]["source_url"],
+                    imageUrl: newsData[index]["_embedded"]["wp:featuredmedia"][0]["source_url"],
                   ),
                 ),
                 const SizedBox(
@@ -808,16 +731,26 @@ class GeneralWidgets {
                       const SizedBox(
                         height: 10,
                       ),
+                      // SizedBox(
+                      //   child: Text(
+                      //     newsData[index]["title"]["rendered"],
+                      //     maxLines: 3,
+                      //     overflow: TextOverflow.ellipsis,
+                      //     softWrap: true,
+                      //     style: TextStyle(color: AppColors.blackColor, fontSize: 14, fontWeight: FontWeight.bold),
+                      //   ),
+                      // ),
                       SizedBox(
-                        child: Text(
-                          newsData[index]["title"]["rendered"],
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: TextStyle(
-                              color: AppColors.blackColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
+                        child: Html(
+                          data: newsData[index]["title"]["rendered"],
+                          style: {
+                            '#': Style(
+                                fontSize: FontSize(14),
+                                maxLines: 3,
+                                textOverflow: TextOverflow.ellipsis,
+                                color: AppColors.blackColor,
+                                fontWeight: FontWeight.bold),
+                          },
                         ),
                       ),
                       const Expanded(child: SizedBox()),
@@ -825,14 +758,12 @@ class GeneralWidgets {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                              "Saved on ${DateFormat.yMMMd().format(DateTime.parse(bookMarkController.bookmark[index]["bookmarkSavedDate"]))}"),
+                          Text("Saved on ${DateFormat.yMMMd().format(DateTime.parse(bookMarkController.bookmark[index]["bookmarkSavedDate"]))}"),
                           Row(
                             children: [
                               InkWell(
                                   onTap: () {
-                                    bookMarkController.bookmark.remove(
-                                        bookMarkController.bookmark[index]);
+                                    bookMarkController.bookmark.remove(bookMarkController.bookmark[index]);
                                     // setState(() {});
                                   },
                                   child: const Icon(
@@ -845,10 +776,8 @@ class GeneralWidgets {
                               ),
                               InkWell(
                                   onTap: () => GeneralWidgets.share(
-                                      text: bookMarkController.bookmark[index]
-                                          ["title"]["rendered"],
-                                      linkUrl: bookMarkController
-                                          .bookmark[index]["link"]),
+                                      text: bookMarkController.bookmark[index]["title"]["rendered"],
+                                      linkUrl: bookMarkController.bookmark[index]["link"]),
                                   child: const Icon(
                                     Icons.share,
                                     color: Colors.black,
@@ -876,17 +805,14 @@ class GeneralWidgets {
         barrierColor: Colors.black.withOpacity(0.6),
         backgroundColor: Colors.white,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         SizedBox(
           child: Wrap(
             children: [
               ListTile(
                 shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                 ),
                 onTap: () {
                   Get.back();
@@ -896,9 +822,7 @@ class GeneralWidgets {
               ),
               ListTile(
                 shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                 ),
                 onTap: () {
                   Get.back();
