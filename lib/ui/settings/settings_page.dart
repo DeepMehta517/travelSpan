@@ -456,7 +456,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _accountTiles(context: context),
+                // _accountTiles(context: context),
                 const SizedBox(
                   height: 20,
                 ),
