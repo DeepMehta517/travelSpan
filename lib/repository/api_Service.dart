@@ -14,8 +14,8 @@ class NewsController extends GetxController {
   Future fetchData({required String id, required int page}) async {
     try {
       isLoading(true);
-      http.Response response = await http.get(Uri.tryParse(
-          'http://travelspan.in/wp-json/wp/v2/posts?_embed&categories=$id&per_page=100&page=$page')!);
+      http.Response response =
+          await http.get(Uri.tryParse('http://travelspan.in/wp-json/wp/v2/posts?_embed&categories=$id&per_page=100&page=$page')!);
 
       if (response.statusCode == 200) {
         result = jsonDecode(response.body);
@@ -38,8 +38,7 @@ class NewsController extends GetxController {
   Future fetchLatestData() async {
     try {
       isLoading(true);
-      http.Response response = await http.get(Uri.tryParse(
-          'https://travelspan.in/wp-json/wp/v2/posts?_embed&per_page=20')!);
+      http.Response response = await http.get(Uri.tryParse('https://travelspan.in/wp-json/wp/v2/posts?_embed&per_page=20')!);
 
       if (response.statusCode == 200) {
         result = jsonDecode(response.body);
@@ -59,14 +58,11 @@ class NewsController extends GetxController {
   Future<List> fetchCategories() async {
     try {
       isLoading(true);
-      http.Response response = await http.get(Uri.tryParse(
-          'https://travelspan.in/wp-json/wp/v2/categories?per_page=100&page=1')!);
+      http.Response response = await http.get(Uri.tryParse('https://travelspan.in/wp-json/wp/v2/categories?per_page=100&page=1')!);
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
 
-        data = await result
-            .map((job) => CategoriesResponse.fromJson(job))
-            .toList();
+        data = await result.map((job) => CategoriesResponse.fromJson(job)).toList();
       } else {
         return Future.error("Server Error");
       }
@@ -82,13 +78,11 @@ class NewsController extends GetxController {
   Future<List> fetchRelatedPost({required String categoryId}) async {
     // try {
     isLoading(true);
-    http.Response response = await http.get(Uri.tryParse(
-        'https://cargonewswire.com/wp-json/wp/v2/posts/?categories=$categoryId&per_page=5')!);
+    http.Response response = await http.get(Uri.tryParse('https://cargonewswire.com/wp-json/wp/v2/posts/?categories=$categoryId&per_page=5')!);
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
 
-      data =
-          await result.map((job) => CategoriesResponse.fromJson(job)).toList();
+      data = await result.map((job) => CategoriesResponse.fromJson(job)).toList();
     } else {
       return Future.error("Server Error");
       // }
@@ -128,8 +122,7 @@ class NewsController extends GetxController {
   }
 
   Future<void> fetchContactUsPage() async {
-    final response =
-        await http.get(Uri.parse('https://travelspan.in/contact/'));
+    final response = await http.get(Uri.parse('https://travelspan.in/contact/'));
     if (response.statusCode == 200) {
       htmlContactContent.value = response.body;
     }

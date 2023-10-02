@@ -58,6 +58,7 @@ dependencies:
   share:
   flutter_rating_bar:
   flutter_email_sender:
+  store_redirect: ^2.0.1
 
 
 
