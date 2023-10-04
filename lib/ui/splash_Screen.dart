@@ -15,8 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1))
-        .then((value) => Get.offAll(HomeCommonUi()));
+    Future.delayed(const Duration(seconds: 1)).then((value) => Get.offAll(HomeCommonUi()));
   }
 
   @override
@@ -33,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                "assets/icons/travelSpan.png",
+                "assets/image/travel_span_logo.png",
               ),
             ],
           ),
