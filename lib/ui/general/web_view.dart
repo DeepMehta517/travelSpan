@@ -6,44 +6,68 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../controllers/ui/home_page/web_view.dart';
 import '../constant/colors.dart';
 
-class WebViewPage extends StatelessWidget {
-  String url;
-  String title;
+class WebViewPage extends StatefulWidget {
+  final String url;
+  final String title;
 
-  WebViewPage({Key? key, required this.url, required this.title})
-      : super(key: key);
+  const WebViewPage({Key? key, required this.url, required this.title}) : super(key: key);
 
+  @override
+  State<WebViewPage> createState() => _WebViewPageState();
+}
 
-  late final webViewControllers;
+class _WebViewPageState extends State<WebViewPage> {
+  late final WebViewController webViewControllers;
+
   final web = Get.put(Webviews());
+
+  @override
+  void initState() {
+    super.initState();
+    webViewControllers = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(NavigationDelegate(
+        onProgress: (int progress) {
+          web.progress.value = progress;
+          removeHeaderFooter();
+        },
+        onPageStarted: (String url) {
+          web.isLoading.value = true;
+        },
+        onPageFinished: (String url) {
+          web.isLoading.value = false;
+        },
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(title),
+        title: Text(widget.title),
         backgroundColor: AppColors.primaryColorRed,
       ),
       body: Obx(() => Stack(
             children: [
-              WebView(
-                initialUrl: url,
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (WebViewController webViewController) {
-                  webViewControllers = webViewController;
-                },
-                onProgress: (int progress) {
-                  web.progress.value = progress;
-                  removeHeaderFooter();
-                },
-                onPageStarted: (String url) {
-                  web.isLoading.value = true;
-                },
-                onPageFinished: (String url) {
-                  web.isLoading.value = false;
-                },
-                gestureNavigationEnabled: true,
+              WebViewWidget(
+                controller: webViewControllers,
+                // initialUrl: url,
+                // javascriptMode: JavascriptMode.unrestricted,
+                // onWebViewCreated: (WebViewController webViewController) {
+                //   webViewControllers = webViewController;
+                // },
+                // onProgress: (int progress) {
+                //   web.progress.value = progress;
+                //   removeHeaderFooter();
+                // },
+                // onPageStarted: (String url) {
+                //   web.isLoading.value = true;
+                // },
+                // onPageFinished: (String url) {
+                //   web.isLoading.value = false;
+                // },
+                // gestureNavigationEnabled: true,
               ),
               if (web.isLoading.value)
                 Column(
@@ -58,10 +82,7 @@ class WebViewPage extends StatelessWidget {
                     Center(
                       child: Text(
                         "${web.progress.value} %",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: AppColors.primaryColorRed),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: AppColors.primaryColorRed),
                       ),
                     )
                   ],
@@ -72,7 +93,7 @@ class WebViewPage extends StatelessWidget {
   }
 
   removeHeaderFooter() async {
-    await webViewControllers.evaluateJavascript('''
+    await webViewControllers.runJavaScript('''
       
       var headerElement = document.getElementsByClassName('tdc-header-wrap');
       for (var i = headerElement.length - 1; i >= 0; i--) {

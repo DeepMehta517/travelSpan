@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:newsapp/controllers/setting/account_setting.dart';
 import 'package:newsapp/repository/firebase_auth.dart';
 
@@ -13,9 +14,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-  )
-      .then((value) => Get.put(AuthenticationRepository()));
+  await Firebase.initializeApp().then((value) => Get.put(AuthenticationRepository()));
+  MobileAds.instance.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   NotificationSettings settings = await messaging.requestPermission(
@@ -46,20 +46,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final setting=Get.put(SettingAccount());
+  final setting = Get.put(SettingAccount());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => GetMaterialApp(
-      initialBinding: BindingsBuilder(() => {
-        Get.put<SettingAccount>(SettingAccount()),
-      }),
-      debugShowCheckedModeBanner: false,
-      theme:(setting.isDarkMode.value)?ThemeData.dark(
-
-
-      ): ThemeData.light(),
-      home: const Center(child: CircularProgressIndicator()),
-    ));
+          initialBinding: BindingsBuilder(() => {
+                Get.put<SettingAccount>(SettingAccount()),
+              }),
+          debugShowCheckedModeBanner: false,
+          theme: (setting.isDarkMode.value) ? ThemeData.dark() : ThemeData.light(),
+          home: const Center(child: CircularProgressIndicator()),
+        ));
   }
 }

@@ -1,16 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:newsapp/ui/general/general_widgets.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../controllers/ui/home_page/tab_bar_controller.dart';
 import '../../repository/api_Service.dart';
 import '../constant/colors.dart';
 
 class CategoriesPage extends StatefulWidget {
-  String id;
+  final String id;
 
-  CategoriesPage({
+  const CategoriesPage({
     Key? key,
     required this.id,
   }) : super(key: key);
@@ -26,16 +29,64 @@ class _CategoriesPageState extends State<CategoriesPage> with AutomaticKeepAlive
   int pageNumber = 1;
   ScrollController scrollController = ScrollController();
 
+  NativeAd? _nativeAd;
+  bool _nativeAdIsLoaded = false;
+  final String _adUnitId = 'ca-app-pub-3940256099942544/2247696110';
+
   late final Future getData;
+
+  void loadAd() {
+    _nativeAd = NativeAd(
+      adUnitId: _adUnitId,
+      listener: NativeAdListener(
+        onAdLoaded: (ad) {
+          // debugPrint('$NativeAd loaded.');
+          setState(() {
+            _nativeAdIsLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Dispose the ad here to free resources.
+          // debugPrint('$NativeAd failed to load: $error');
+          ad.dispose();
+        },
+      ),
+      request: const AdRequest(),
+      // Styling
+      nativeTemplateStyle: NativeTemplateStyle(
+        // Required: Choose a template.
+        templateType: TemplateType.medium,
+        // Optional: Customize the ad's style.
+        // mainBackgroundColor: Colors.purple,
+        // cornerRadius: 10.0,
+        // callToActionTextStyle:
+        //     NativeTemplateTextStyle(textColor: Colors.cyan, backgroundColor: Colors.red, style: NativeTemplateFontStyle.monospace, size: 16.0),
+        // primaryTextStyle:
+        //     NativeTemplateTextStyle(textColor: Colors.red, backgroundColor: Colors.cyan, style: NativeTemplateFontStyle.italic, size: 16.0),
+        // secondaryTextStyle:
+        //     NativeTemplateTextStyle(textColor: Colors.green, backgroundColor: Colors.black, style: NativeTemplateFontStyle.bold, size: 16.0),
+        // tertiaryTextStyle:
+        //     NativeTemplateTextStyle(textColor: Colors.brown, backgroundColor: Colors.amber, style: NativeTemplateFontStyle.normal, size: 16.0),
+      ),
+    )..load();
+  }
 
   @override
   void initState() {
     super.initState();
     getData = (widget.id.isEmpty) ? newsData.fetchLatestData() : newsData.fetchData(id: widget.id, page: pageNumber);
+    loadAd();
+  }
+
+  @override
+  void dispose() {
+    _nativeAd?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
       future: getData,
       builder: (context, snapshot) {
@@ -58,11 +109,21 @@ class _CategoriesPageState extends State<CategoriesPage> with AutomaticKeepAlive
                   return GeneralWidgets().zerothIndexWidget(id: widget.id, context: context, newsData: snapshot.data ?? [], index: index);
                 }
 
-                return GeneralWidgets().newsCard(
-                  context: context,
-                  newsData: snapshot.data ?? [],
-                  id: widget.id,
-                  index: index,
+                return Column(
+                  children: [
+                    GeneralWidgets().newsCard(
+                      context: context,
+                      newsData: snapshot.data ?? [],
+                      id: widget.id,
+                      index: index,
+                    ),
+                    if (index == 3 && _nativeAdIsLoaded)
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 300,
+                        child: Center(child: AdWidget(ad: _nativeAd!)),
+                      )
+                  ],
                 );
               });
         } else if (snapshot.hasError) {

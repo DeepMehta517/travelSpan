@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3763158665726358~6822595113</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We will be using it at a later stage of the app but currently we are not using it</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

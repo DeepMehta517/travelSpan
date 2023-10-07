@@ -91,7 +91,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     child: Html(
                       data: widget.newsData[index]["title"]["rendered"],
                       style: {
-                        '#': Style(fontSize:const  FontSize(25), fontWeight: FontWeight.bold, textAlign: TextAlign.start),
+                        '#': Style(fontSize: FontSize(25), fontWeight: FontWeight.bold, textAlign: TextAlign.start),
                       },
                     )),
                 const SizedBox(
@@ -204,7 +204,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         style: {
                           "body": Style(
                               fontSize: FontSize(fontSizeController.fontSize.value.toDouble()),
-                              margin: const EdgeInsets.symmetric(horizontal: 15),
+                              margin: Margins.symmetric(horizontal: 15),
                               textAlign: TextAlign.start,
                               lineHeight: LineHeight.number(1.2)),
                         },
