@@ -31,7 +31,7 @@ class _CategoriesPageState extends State<CategoriesPage> with AutomaticKeepAlive
 
   NativeAd? _nativeAd;
   bool _nativeAdIsLoaded = false;
-  final String _adUnitId = 'ca-app-pub-3940256099942544/2247696110';
+  final String _adUnitId = Platform.isIOS ? 'ca-app-pub-3763158665726358/9573128958' : 'ca-app-pub-3763158665726358/8516032305';
 
   late final Future getData;
 
