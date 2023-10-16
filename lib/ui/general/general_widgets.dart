@@ -456,6 +456,7 @@ class GeneralWidgets {
                             fontSize: FontSize(15),
                             maxLines: 2,
                             textOverflow: TextOverflow.ellipsis,
+                            color: Colors.black
                           ),
                         },
                       ),
@@ -567,7 +568,7 @@ class GeneralWidgets {
     required int index,
     String? categoryName,
   }) {
-    // print(newsData[index]["categories"].where((news) => news[0]));
+
     return InkWell(
       onTap: () {
         Get.to(() => DetailsPage(
@@ -592,6 +593,7 @@ class GeneralWidgets {
                 style: {
                   '#': Style(
                     fontSize: FontSize(20),
+                    color: Colors.black
                   ),
                 },
               ),
