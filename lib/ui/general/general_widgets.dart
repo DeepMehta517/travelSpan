@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:newsapp/ui/general/web_view.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../controllers/setting/account_setting.dart';
 import '../../controllers/ui/home_page/bookmark_controller.dart';
@@ -23,7 +21,7 @@ class GeneralWidgets {
 
   /// share app
   Future<void> shareContent(String content) async {
-    await Share.share(content);
+    await SharePlus.instance.share(ShareParams(text: content));
   }
 
   ///Share
@@ -32,7 +30,7 @@ class GeneralWidgets {
     required String? linkUrl,
     required String? text,
   }) async {
-    await FlutterShare.share(text: text, title: 'Share', linkUrl: linkUrl, chooserTitle: 'Example Chooser Title');
+    Share.share("${text!}\n${linkUrl!}", subject: 'Share');
   }
 
   ///saved Story Remove Permanently Dialog
@@ -452,12 +450,7 @@ class GeneralWidgets {
                         data: newsData[index]["title"]["rendered"],
                         shrinkWrap: true,
                         style: {
-                          '#': Style(
-                            fontSize: FontSize(15),
-                            maxLines: 2,
-                            textOverflow: TextOverflow.ellipsis,
-                            color: Colors.black
-                          ),
+                          '#': Style(fontSize: FontSize(15), maxLines: 2, textOverflow: TextOverflow.ellipsis, color: Colors.black),
                         },
                       ),
                       // SizedBox(
@@ -568,7 +561,6 @@ class GeneralWidgets {
     required int index,
     String? categoryName,
   }) {
-
     return InkWell(
       onTap: () {
         Get.to(() => DetailsPage(
@@ -591,10 +583,7 @@ class GeneralWidgets {
                 data: newsData[index]["title"]["rendered"],
                 shrinkWrap: true,
                 style: {
-                  '#': Style(
-                    fontSize: FontSize(20),
-                    color: Colors.black
-                  ),
+                  '#': Style(fontSize: FontSize(20), color: Colors.black),
                 },
               ),
             ),

@@ -1,18 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.7.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.gms:google-services:4.3.13"
-
-    }
-}
-
 allprojects {
     repositories {
         google()
@@ -23,6 +8,22 @@ allprojects {
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null) {
+                    def manifestFile = project.file('src/main/AndroidManifest.xml')
+                    if (manifestFile.exists()) {
+                        def manifest = new XmlSlurper().parse(manifestFile)
+                        def packageName = manifest.'@package'.text()
+                        if (packageName) {
+                            namespace = packageName
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 subprojects {
     project.evaluationDependsOn(':app')

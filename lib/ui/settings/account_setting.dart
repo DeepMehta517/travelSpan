@@ -121,8 +121,7 @@ class AccountSetting extends StatelessWidget {
                             email: auth.currentUser?.email ?? "",
                             password: "testing")
                         .then((value) {
-                      auth.currentUser
-                          ?.updateEmail(settingAccount.emailController.text);
+                      auth.currentUser?.verifyBeforeUpdateEmail(settingAccount.emailController.text);
 
                       FirebaseDatabase.instance
                           .ref().child(auth.currentUser!.uid)

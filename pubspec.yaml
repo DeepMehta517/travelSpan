@@ -36,30 +36,29 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.5
-  http: ^0.13.5
-  flutter_expandable_fab: ^1.7.1
+  http: ^1.5.0
+  flutter_expandable_fab: ^2.5.2
   app_settings:
   device_preview: ^1.1.0
-  sizer: ^2.0.15
+  sizer: ^3.1.3
   flutter_html: ^3.0.0-beta.2
   get_storage: ^2.1.1
   firebase_core:
-  firebase_auth:
+  firebase_auth: 6.1.1
   firebase_messaging:
-  intl: ^0.18.0
-  flutter_share: ^2.0.0
+  intl: ^0.20.2
+  share_plus: ^12.0.1
   firebase_storage:
   firebase_database:
   timeago: ^3.3.0
   fancy_shimmer_image: ^2.0.2
-  lottie: ^2.3.2
+  lottie: ^3.3.2
   path_provider:
   image_picker:
-  share:
   flutter_rating_bar:
   flutter_email_sender:
   store_redirect: ^2.0.1
-  google_mobile_ads: ^3.0.0
+  google_mobile_ads: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +71,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
 flutter_icons:
   android: true
   ios: true

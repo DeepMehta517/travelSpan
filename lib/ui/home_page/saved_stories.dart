@@ -39,13 +39,13 @@ class _SavedStoriesState extends State<SavedStories> {
             floatingActionButton: (bookMarkController.bookmark.isEmpty)
                 ? const SizedBox()
                 : ExpandableFab(
-                    child: const Icon(Icons.delete),
-                    backgroundColor: const Color(0xffCC0000),
-                    collapsedFabSize: ExpandableFabSize.regular,
+                    // child: const Icon(Icons.delete),
+                    // backgroundColor: const Color(0xffCC0000),
+                    // collapsedFabSize: ExpandableFabSize.regular,
                     type: ExpandableFabType.up,
-                    closeButtonStyle: const ExpandableFabCloseButtonStyle(
-                      backgroundColor: Color(0xffCC0000),
-                    ),
+                    // closeButtonStyle: const ExpandableFabCloseButtonStyle(
+                    //   backgroundColor: Color(0xffCC0000),
+                    // ),
                     distance: 50,
                     children: [
                       Container(
