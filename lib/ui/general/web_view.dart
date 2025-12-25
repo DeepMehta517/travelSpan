@@ -25,6 +25,7 @@ class _WebViewPageState extends State<WebViewPage> {
   void initState() {
     super.initState();
     webViewControllers = WebViewController()
+      ..loadRequest(Uri.parse(widget.url))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress) {

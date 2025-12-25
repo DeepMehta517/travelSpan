@@ -9,14 +9,13 @@ import '../../repository/api_Service.dart';
 import '../general/general_widgets.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   MyTabs tabsController = Get.put(MyTabs());
   final settingController = Get.put(SettingAccount());
   NewsController newsData = Get.put(NewsController());
@@ -24,6 +23,7 @@ class _HomePageState extends State<HomePage>
   ///Tab Bar
   Widget _tabBar() {
     return Material(
+      color: Colors.white,
       elevation: 2,
       child: TabBar(
         onTap: (index) {
@@ -39,11 +39,7 @@ class _HomePageState extends State<HomePage>
                   ),
                   child: Obx(() => Text(
                         e.key,
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: (settingController.isDarkMode.value)
-                                ? Colors.white
-                                : Colors.black),
+                        style: TextStyle(fontSize: 18, color: (settingController.isDarkMode.value) ? Colors.white : Colors.black),
                       )),
                 ))
             .toList(),
@@ -73,13 +69,13 @@ class _HomePageState extends State<HomePage>
         length: tabsController.tabBarCategories.entries.length,
         initialIndex: 0,
         child: Scaffold(
-          appBar: GeneralWidgets.appBar(title: "Travel Span"),
+          appBar: GeneralWidgets.appBar(title: "Travel Span", image: 'image/travel_span_logo.png'),
           drawer: GeneralWidgets.drawer(
               mainCategories: tabsController.mainCategories,
               subCategories: tabsController.subCategories,
               isLoading: tabsController.isLoading.value,
               context: context),
-          backgroundColor: AppColors.scaffoldBackGroundColors,
+          backgroundColor: Colors.grey[200],
           body: Column(
             children: [
               _tabBar(),

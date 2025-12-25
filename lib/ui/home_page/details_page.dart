@@ -57,6 +57,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[200],
         appBar: _appBar(),
         body: PageView.builder(
           controller: PageController(initialPage: widget.index),

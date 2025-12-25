@@ -189,28 +189,28 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                   ),
                 ),
-                ListTile(
-                  // onTap: () => AppSettings.openNotificationSettings(),
-                  contentPadding: const EdgeInsets.all(0),
-                  title: const Text(
-                    "Android Notification Settings",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                SwitchListTile(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: const Text(
-                    "Dark Mode",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  value: (settingController.isDarkMode.value) ? true : false,
-                  onChanged: (value) {
-                    settingController.toggleDarkMode();
-                    GetStorage().write("DarkMode", settingController.isDarkMode.value);
-                  },
-                  activeColor: Colors.red,
-                  inactiveTrackColor: Colors.grey,
-                ),
+                // ListTile(
+                //   // onTap: () => AppSettings.openNotificationSettings(),
+                //   contentPadding: const EdgeInsets.all(0),
+                //   title: const Text(
+                //     "Android Notification Settings",
+                //     style: TextStyle(fontSize: 18),
+                //   ),
+                // ),
+                // SwitchListTile(
+                //   contentPadding: const EdgeInsets.all(0),
+                //   title: const Text(
+                //     "Dark Mode",
+                //     style: TextStyle(fontSize: 18),
+                //   ),
+                //   value: (settingController.isDarkMode.value) ? true : false,
+                //   onChanged: (value) {
+                //     settingController.toggleDarkMode();
+                //     GetStorage().write("DarkMode", settingController.isDarkMode.value);
+                //   },
+                //   activeColor: Colors.red,
+                //   inactiveTrackColor: Colors.grey,
+                // ),
 
                 // SwitchListTile(
                 //   contentPadding:const EdgeInsets.all(0),

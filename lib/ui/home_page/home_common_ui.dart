@@ -24,10 +24,10 @@ class HomeCommonUi extends StatelessWidget {
   Widget _bottomNavigationBar() {
     return Obx(
       () => BottomNavigationBar(
+        backgroundColor: Colors.white,
         showUnselectedLabels: true,
         selectedItemColor: AppColors.primaryColorRed,
-        selectedLabelStyle:
-            const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        selectedLabelStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         iconSize: 28,
         unselectedItemColor: AppColors.greyColor,
         unselectedIconTheme: const IconThemeData(

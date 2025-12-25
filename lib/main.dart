@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:newsapp/controllers/setting/account_setting.dart';
 import 'package:newsapp/repository/firebase_auth.dart';
+import 'package:newsapp/ui/constant/colors.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -55,7 +56,12 @@ class _MyAppState extends State<MyApp> {
                 Get.put<SettingAccount>(SettingAccount()),
               }),
           debugShowCheckedModeBanner: false,
-          theme: (setting.isDarkMode.value) ? ThemeData.dark() : ThemeData.light(),
+          theme: (setting.isDarkMode.value)
+              ? ThemeData.dark()
+              : ThemeData.light().copyWith(
+                  scaffoldBackgroundColor: Colors.grey[200],
+                  appBarTheme: AppBarThemeData(foregroundColor: Colors.white),
+                  progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors.primaryColorRed)),
           home: const Center(child: CircularProgressIndicator()),
         ));
   }

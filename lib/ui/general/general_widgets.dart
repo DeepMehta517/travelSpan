@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:newsapp/ui/general/web_view.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sizer/sizer.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../controllers/setting/account_setting.dart';
 import '../../controllers/ui/home_page/bookmark_controller.dart';
@@ -380,14 +381,17 @@ class GeneralWidgets {
     );
   }
 
-  static PreferredSizeWidget appBar({required String title}) {
+  static PreferredSizeWidget appBar({required String title, String? image}) {
     return AppBar(
-      title: Padding(
-        padding: const EdgeInsets.only(top: 5),
-        child: Text(
-          title,
-        ),
-      ),
+      foregroundColor: Colors.white,
+      title: image != null
+          ? Image.asset('assets/$image', height: 35)
+          : Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Text(
+                title,
+              ),
+            ),
       centerTitle: true,
       backgroundColor: AppColors.primaryColorRed,
       elevation: 0,
