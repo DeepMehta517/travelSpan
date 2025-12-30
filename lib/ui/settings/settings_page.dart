@@ -273,7 +273,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ListTile(
               onTap: () => Get.to(WebViewPage(
                 title: "Terms and Conditions",
-                url: "https://travelspan.in/terms-conditions/",
+                url: "https://travelspan.in/terms-and-conditions/",
               )),
               contentPadding: const EdgeInsets.all(0),
               title: const Text(

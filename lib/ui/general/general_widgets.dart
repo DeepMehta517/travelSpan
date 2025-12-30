@@ -455,7 +455,13 @@ class GeneralWidgets {
                         data: newsData[index]["title"]["rendered"],
                         shrinkWrap: true,
                         style: {
-                          '#': Style(fontSize: FontSize(15), maxLines: 2, textOverflow: TextOverflow.ellipsis, color: Colors.black),
+                          '#': Style(
+                            fontSize: FontSize(15),
+                            maxLines: 2,
+                            textOverflow: TextOverflow.ellipsis,
+                            color: Colors.black,
+                            margin: Margins.zero,
+                          ),
                         },
                       ),
                       // SizedBox(
@@ -745,7 +751,8 @@ class GeneralWidgets {
                                 maxLines: 3,
                                 textOverflow: TextOverflow.ellipsis,
                                 color: AppColors.blackColor,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                margin: Margins.zero),
                           },
                         ),
                       ),

@@ -246,7 +246,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    "Copyright © 2023 Travel Span",
+                    "Copyright © 2026 Travel Span",
                     style: TextStyle(fontSize: 14),
                   ),
                 )
