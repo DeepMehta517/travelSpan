@@ -334,94 +334,94 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              onTap: () => showBottomSheet(
-                elevation: 20,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
-                ),
-                enableDrag: true,
-                context: context,
-                builder: (context) {
-                  return Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height / 5,
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Obx(() => Text(
-                              "Ratings: ${settingController.rating.value}",
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                            )),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        RatingBar.builder(
-                          initialRating: settingController.rating.value.toDouble(),
-                          minRating: 1,
-                          maxRating: 5,
-                          glow: false,
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          onRatingUpdate: (value) => settingController.rating.value = value.toInt(),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        GestureDetector(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.primaryColorRed),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                              child: Text(
-                                "Submit",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            settingController.rating.value = 0;
-                            StoreRedirect.redirect(androidAppId: "com.devender.travel_Span", iOSAppId: "585027354");
-                            Get.back();
-                          },
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-              title: const Text(
-                "Rate our app",
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              onTap: () => GeneralWidgets().shareContent(
-                "https://play.google.com/store/apps/details?id=com.devender.travel_Span",
-              ),
-              title: const Text(
-                "Share our app",
-                style: TextStyle(fontSize: 18),
-              ),
-              trailing: GestureDetector(
-                  child: const Icon(
-                Icons.share,
-              )),
-            ),
+            // ListTile(
+            //   contentPadding: const EdgeInsets.all(0),
+            //   onTap: () => showBottomSheet(
+            //     elevation: 20,
+            //     shape: const RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.only(
+            //         topLeft: Radius.circular(20.0),
+            //         topRight: Radius.circular(20.0),
+            //       ),
+            //     ),
+            //     enableDrag: true,
+            //     context: context,
+            //     builder: (context) {
+            //       return Container(
+            //         alignment: Alignment.center,
+            //         height: MediaQuery.of(context).size.height / 5,
+            //         width: MediaQuery.of(context).size.width,
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             Obx(() => Text(
+            //                   "Ratings: ${settingController.rating.value}",
+            //                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            //                 )),
+            //             const SizedBox(
+            //               height: 10,
+            //             ),
+            //             RatingBar.builder(
+            //               initialRating: settingController.rating.value.toDouble(),
+            //               minRating: 1,
+            //               maxRating: 5,
+            //               glow: false,
+            //               itemBuilder: (context, index) => const Icon(
+            //                 Icons.star,
+            //                 color: Colors.amber,
+            //               ),
+            //               onRatingUpdate: (value) => settingController.rating.value = value.toInt(),
+            //             ),
+            //             const SizedBox(
+            //               height: 15,
+            //             ),
+            //             GestureDetector(
+            //               child: Container(
+            //                 width: MediaQuery.of(context).size.width / 3,
+            //                 alignment: Alignment.center,
+            //                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.primaryColorRed),
+            //                 child: const Padding(
+            //                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            //                   child: Text(
+            //                     "Submit",
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontSize: 16,
+            //                       fontWeight: FontWeight.normal,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //               onTap: () {
+            //                 settingController.rating.value = 0;
+            //                 StoreRedirect.redirect(androidAppId: "com.devender.travel_Span", iOSAppId: "585027354");
+            //                 Get.back();
+            //               },
+            //             )
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //   ),
+            //   title: const Text(
+            //     "Rate our app",
+            //     style: TextStyle(fontSize: 18),
+            //   ),
+            // ),
+            // ListTile(
+            //   contentPadding: const EdgeInsets.all(0),
+            //   onTap: () => GeneralWidgets().shareContent(
+            //     "https://play.google.com/store/apps/details?id=com.devender.travel_Span",
+            //   ),
+            //   title: const Text(
+            //     "Share our app",
+            //     style: TextStyle(fontSize: 18),
+            //   ),
+            //   trailing: GestureDetector(
+            //       child: const Icon(
+            //     Icons.share,
+            //   )),
+            // ),
           ]).toList(),
         ),
         const Divider(),
