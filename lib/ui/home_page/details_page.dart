@@ -68,10 +68,10 @@ class _DetailsPageState extends State<DetailsPage> {
                 SizedBox(
                     height: MediaQuery.of(context).size.height / 4,
                     width: MediaQuery.of(context).size.width,
-                    child: FancyShimmerImage(
-                      imageUrl: widget.newsData[index]["_embedded"]["wp:featuredmedia"]?[0]["source_url"] ?? "",
+                    child: Image.network(
+                      widget.newsData[index]["_embedded"]["wp:featuredmedia"]?[0]["source_url"] ?? "",
                       width: MediaQuery.of(context).size.width,
-                      boxFit: BoxFit.cover,
+                      fit: BoxFit.cover,
                     )),
                 // Container(
                 //   margin: const EdgeInsets.only(top: 10),

@@ -431,10 +431,11 @@ class GeneralWidgets {
                 SizedBox(
                   height: 100,
                   width: 150,
-                  child: FancyShimmerImage(
-                    imageUrl: (newsData[index]["_embedded"]["wp:featuredmedia"] != null)
+                  child: Image.network(
+                    (newsData[index]["_embedded"]["wp:featuredmedia"] != null)
                         ? newsData[index]["_embedded"]["wp:featuredmedia"][0]["source_url"] ?? ''
                         : "",
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(
